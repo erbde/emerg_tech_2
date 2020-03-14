@@ -2,27 +2,36 @@
 
 from string import punctuation
 import pandas as pd
-import re
 
 # %%
 f = open("shakes.txt", "r+", encoding="UTF-8")
-# %%
 shakes = f.read()
 f.close()
-shakes_words = shakes.split()
+# %%
+def tokenizer(document: str, punct_to_remove: str):
+    new_doc = document.replace("\n"," ", -1)
+    punct_to_remove = list(punct_to_remove)
+    for i in punct_to_remove:
+        new_doc = new_doc.replace(i, "", -1)
+    new_doc = new_doc.lower()
+    new_doc = new_doc.split()
+    return new_doc
+
+# %%
+new_shakes = tokenizer(document = shakes, punct_to_remove = punctuation)
+
+
+# %%
+x = lambda a : a + 10
+print(x(5))
 #%%
-punct_list = list(punctuation)
+def myfunc(n):
+    return lambda a : a * n
+mytripler = myfunc(3)
+print(mytripler(11))
 
 # %%
-#table = print(shakes.maketrans(x = "", y = "", z = punctuation))
-print(shakes.maketrans(shakes,shakes,punctuation))
+scifi_authors = ["Isaac Asimov", "Ray Bradbury", "Robert Heinlein", "Arthur C. Clark", "Frank Herbert", "Orson Scott Card", "Douglas Adams", "H. G. Wells", "Leigh Brackett"]
+scifi_authors.sort(key=lambda name: name.split(" ")[-1].lower())
 
-# %%
-new_shakes = shakes
-new_shakes = new_shakes.replace("\n", " ", -1)
-for i in punct_list:
-    new_shakes = new_shakes.replace(i, "", -1)
-# %%
-new_shakes = new_shakes.lower()
-print(new_shakes)
 # %%
